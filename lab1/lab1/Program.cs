@@ -38,7 +38,7 @@ namespace Crawler {
 
 
 
-                    //potrzebny fix regexa
+                    //potrzebny fix exceptiona
 
                 }
             }
