@@ -18,16 +18,16 @@ namespace Crawler {
             if (!(Uri.IsWellFormedUriString(url,UriKind.Absolute)))
                 throw new ArgumentException("Pass correct URL address");
 
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = new();
 
-            try { 
+            try {
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
                 if (response.IsSuccessStatusCode) {
-                    string zawartoszStrony = await response.Content.ReadAsStringAsync();
+                    string zawartoszStrony = await response.Content.ReadAsStringAsync(); // await dla a-synch
                     String pattern = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
 
-                    Regex regex = new Regex(pattern, RegexOptions.IgnoreCase); // bez uwzglednienia rozmiaru liter
+                    Regex regex = new(pattern, RegexOptions.IgnoreCase); // bez uwzglednienia rozmiaru liter
 
                     MatchCollection mathColection = regex.Matches(zawartoszStrony);
 
@@ -36,14 +36,12 @@ namespace Crawler {
                     foreach (Match match in mathColection)
                         hashSet.Add(match.Value);
 
-                    if (hashSet.Count > 0)
+                    if (hashSet.Count >= 1)
                         foreach (string str in hashSet)
                             Console.WriteLine(str);
                     else
                         Console.WriteLine("Nie znaleziono adrsów e-mail");
-                    
                 }
-                httpClient.Dispose();
             }
             catch (Exception e) {
                 Console.WriteLine("Błąd podczs pobierania strony: " + e.Message);
