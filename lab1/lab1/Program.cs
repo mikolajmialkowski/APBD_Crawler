@@ -35,9 +35,6 @@ namespace Crawler {
                         Console.WriteLine(str);
 
                     }
-
-
-
                     //potrzebny fix exceptiona
 
                 }
