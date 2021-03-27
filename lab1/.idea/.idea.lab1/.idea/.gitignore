@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.lab1.iml
+# Datasource local storage ignored files
+/../../../../../../../../../../../../:\Users\mjuni\OneDrive\Pulpit\PJATEK\APBD\cwiczenia_1-mikolajmialkowski\lab1\.idea\.idea.lab1\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

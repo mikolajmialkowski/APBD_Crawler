@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -24,27 +23,27 @@ namespace Crawler {
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
                 if (response.IsSuccessStatusCode) {
-                    string zawartoszStrony = await response.Content.ReadAsStringAsync(); // await dla a-synch
+                    string siteContent = await response.Content.ReadAsStringAsync(); // await for a-sync
                     String pattern = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
 
-                    Regex regex = new(pattern, RegexOptions.IgnoreCase); // bez uwzglednienia rozmiaru liter
+                    Regex regex = new(pattern, RegexOptions.IgnoreCase); //ignore letter case
 
-                    MatchCollection mathColection = regex.Matches(zawartoszStrony);
+                    MatchCollection mathCollection = regex.Matches(siteContent);
 
-                    HashSet<String> hashSet = new HashSet<String>();
+                    HashSet<string> hashSet = new HashSet<string>();
 
-                    foreach (Match match in mathColection)
+                    foreach (Match match in mathCollection)
                         hashSet.Add(match.Value);
 
                     if (hashSet.Count >= 1)
                         foreach (string str in hashSet)
                             Console.WriteLine(str);
                     else
-                        Console.WriteLine("Nie znaleziono adrsów e-mail");
+                        Console.WriteLine("Haven't found e-mail addresses");
                 }
             }
             catch (Exception e) {
-                Console.WriteLine("Błąd podczs pobierania strony: " + e.Message);
+                Console.WriteLine("Error during site downland: " + e.Message);
             }
             finally {
                 httpClient.Dispose();
