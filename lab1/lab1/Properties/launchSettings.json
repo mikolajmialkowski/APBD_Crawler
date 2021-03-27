@@ -2,7 +2,7 @@
   "profiles": {
     "lab1": {
       "commandName": "Project",
-      "commandLineArgs": "https://www.pja.edu.pl/"
+      "commandLineArgs": "https://www.pja.edu.pl/en/"
     }
   }
 }

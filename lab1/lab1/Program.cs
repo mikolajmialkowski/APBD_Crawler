@@ -11,11 +11,16 @@ namespace Crawler {
         public static async Task Main(string[] args) {
 
             if (args.Length == 0)
-                throw new ArgumentNullException("Pass URL adress");
+                throw new ArgumentNullException("Pass URL address");
 
             string url = args[0];
-            using (HttpClient httpClient = new HttpClient()) // automatycznie uruchomi dispose, troche jak finnaly{} --> httpClient.Dispose();
-            {
+
+            if (!(Uri.IsWellFormedUriString(url,UriKind.Absolute)))
+                throw new ArgumentException("Pass correct URL address");
+
+            HttpClient httpClient = new HttpClient();
+
+            try { 
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
                 if (response.IsSuccessStatusCode) {
@@ -31,13 +36,20 @@ namespace Crawler {
                     foreach (Match match in mathColection)
                         hashSet.Add(match.Value);
 
-                    foreach (string str in hashSet) {
-                        Console.WriteLine(str);
-
-                    }
-                    //potrzebny fix exceptiona
-
+                    if (hashSet.Count > 0)
+                        foreach (string str in hashSet)
+                            Console.WriteLine(str);
+                    else
+                        Console.WriteLine("Nie znaleziono adrsów e-mail");
+                    
                 }
+                httpClient.Dispose();
+            }
+            catch (Exception e) {
+                Console.WriteLine("Błąd podczs pobierania strony: " + e.Message);
+            }
+            finally {
+                httpClient.Dispose();
             }
         }
     }
