@@ -21,6 +21,7 @@ namespace Crawler {
 
             try {
                 HttpResponseMessage response = await httpClient.GetAsync(url);
+                
 
                 if (response.IsSuccessStatusCode) {
                     string siteContent = await response.Content.ReadAsStringAsync(); // await for a-sync
